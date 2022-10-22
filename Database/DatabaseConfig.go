@@ -7,7 +7,7 @@ import (
 	"github.com/davecgh/go-spew/spew"
 	"github.com/pkg/errors"
 
-	_ "github.com/lib/pq"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 // Database holds the connection pool to the database - created by a configuration
@@ -35,8 +35,14 @@ type Config struct {
 	Database string
 }
 
-// New returns a Database with the sql.DB set with the postgres
-// DB connection string in the configuration
+// geekole.com
+type User struct {
+	ID       int    `json:"id"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+	Email    string `json:"email"`
+}
+
 func New(cfg Config) (database Database, err error) {
 	if cfg.Host == "" || cfg.Port == "" || cfg.User == "" ||
 		cfg.Password == "" || cfg.Database == "" {
@@ -48,16 +54,12 @@ func New(cfg Config) (database Database, err error) {
 
 	database.cfg = cfg
 
-	// The first argument corresponds to the driver name that the driver
-	// (in this case, `lib/pq`) used to register itself in `database/sql`.
-	// The next argument specifies the parameters to be used in the connection.
-	// Details about this string can be seen at https://godoc.org/github.com/lib/pq
-	db, err := sql.Open("postgres", fmt.Sprintf(
-		"user=%s password=%s dbname=%s host=%s port=%s sslmode=disable",
-		cfg.User, cfg.Password, cfg.Database, cfg.Host, cfg.Port))
+	db, err := sql.Open("mysql", fmt.Sprintf(
+		"%s:%s@tcp(%s:%s)/%s?parseTime=true",
+		cfg.User, cfg.Password, cfg.Host, cfg.Port, cfg.Database))
 	if err != nil {
 		err = errors.Wrapf(err,
-			"Couldn't open connection to postgre database (%s)",
+			"Couldn't open connection to mariadb database (%s)",
 			spew.Sdump(cfg))
 		return
 	}

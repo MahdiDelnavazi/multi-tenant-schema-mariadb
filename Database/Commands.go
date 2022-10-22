@@ -49,7 +49,7 @@ func (db *Database) CheckSchemaExist(tenant string) error {
 // CreateTableA for create new user table in tenant
 func (db *Database) CreateTableA(tenant string) error {
 	query := fmt.Sprintf(`create table if not exists %s."A"("Id" serial PRIMARY KEY,
-    	"CreatedAt" timestamptz NOT NULL DEFAULT (now()),
+    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
 		"Age" int);`, tenant)
 
 	_, err := db.NameSpace.Exec(query)
@@ -85,7 +85,7 @@ func (db *Database) CreateIndexTableA(tenant string) error {
 func (db *Database) CreateTableB(tenant string) error {
 	query := fmt.Sprintf(`create table if not exists %s."B"("Id" serial PRIMARY KEY,
 		"IdA" int,
-    	"CreatedAt" timestamptz NOT NULL DEFAULT (now()),
+    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
 		"Age" int,
 		CONSTRAINT fk_B
 		FOREIGN KEY("IdA") 
@@ -123,7 +123,7 @@ func (db *Database) CreateIndexTableB(tenant string) error {
 // CreateTableC for create new user table in tenant
 func (db *Database) CreateTableC(tenant string) error {
 	query := fmt.Sprintf(`create table if not exists %s."C"("Id" serial PRIMARY KEY,
-    	"CreatedAt" timestamptz NOT NULL DEFAULT (now()),
+    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
 		"Age" int);`, tenant)
 
 	_, err := db.NameSpace.Exec(query)
@@ -158,7 +158,7 @@ func (db *Database) CreateIndexTableC(tenant string) error {
 // CreateTableD for create new user table in tenant
 func (db *Database) CreateTableD(tenant string) error {
 	query := fmt.Sprintf(`create table if not exists %s."D"("Id" serial PRIMARY KEY,
-    	"CreatedAt" timestamptz NOT NULL DEFAULT (now()),
+    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
 		"Age" int);`, tenant)
 
 	_, err := db.NameSpace.Exec(query)
@@ -193,7 +193,7 @@ func (db *Database) CreateIndexTableD(tenant string) error {
 // CreateTableE for create new user table in tenant
 func (db *Database) CreateTableE(tenant string) error {
 	query := fmt.Sprintf(`create table if not exists %s."E"("Id" serial PRIMARY KEY,
-    	"CreatedAt" timestamptz NOT NULL DEFAULT (now()),
+    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
 		"Name" text);`, tenant)
 
 	_, err := db.NameSpace.Exec(query)
@@ -227,7 +227,7 @@ func (db *Database) CreateIndexTableE(tenant string) error {
 // CreateTableF for create new user table in tenant
 func (db *Database) CreateTableF(tenant string) error {
 	query := fmt.Sprintf(`create table if not exists %s."F"("Id" serial PRIMARY KEY,
-    	"CreatedAt" timestamptz NOT NULL DEFAULT (now()),
+    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
 		"Age" int);`, tenant)
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -261,7 +261,7 @@ func (db *Database) CreateIndexTableF(tenant string) error {
 // CreateTableG for create new user table in tenant
 func (db *Database) CreateTableG(tenant string) error {
 	query := fmt.Sprintf(`create table if not exists %s."G"("Id" serial PRIMARY KEY,
-    	"CreatedAt" timestamptz NOT NULL DEFAULT (now()),
+    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
 		"Age" int);`, tenant)
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -295,7 +295,7 @@ func (db *Database) CreateIndexTableG(tenant string) error {
 // CreateTableH for create new user table in tenant
 func (db *Database) CreateTableH(tenant string) error {
 	query := fmt.Sprintf(`create table if not exists %s."H"("Id" serial PRIMARY KEY,
-    	"CreatedAt" timestamptz NOT NULL DEFAULT (now()),
+    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
 		"Age" int);`, tenant)
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -329,7 +329,7 @@ func (db *Database) CreateIndexTableH(tenant string) error {
 // CreateTableI for create new user table in tenant
 func (db *Database) CreateTableI(tenant string) error {
 	query := fmt.Sprintf(`create table if not exists %s."I"("Id" serial PRIMARY KEY,
-    	"CreatedAt" timestamptz NOT NULL DEFAULT (now()),
+    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
 		"Age" int);`, tenant)
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -363,7 +363,7 @@ func (db *Database) CreateIndexTableI(tenant string) error {
 // CreateTableJ for create new user table in tenant
 func (db *Database) CreateTableJ(tenant string) error {
 	query := fmt.Sprintf(`create table if not exists %s."J"("Id" serial PRIMARY KEY,
-    	"CreatedAt" timestamptz NOT NULL DEFAULT (now()),
+    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
 		"Age" int);`, tenant)
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {

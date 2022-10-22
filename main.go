@@ -8,7 +8,7 @@ import (
 
 func main() {
 
-	dbConfig := Database.Config{Database: "multi-tenant-schema", Host: "localhost", Port: "5432", User: "root", Password: "secret"}
+	dbConfig := Database.Config{Database: "multi_tenant_schema_mariadb", Host: "localhost", Port: "3306", User: "root1", Password: "secret"}
 	database, err := Database.New(dbConfig)
 	if err != nil {
 		panic(err)
