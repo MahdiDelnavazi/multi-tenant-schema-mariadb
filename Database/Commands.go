@@ -361,7 +361,7 @@ func (db *Database) InsertIntoTableJ(tenant string) error {
 
 // CreateIndexTableJ for create multi column index in table J
 func (db *Database) CreateIndexTableJ(tenant string) error {
-	query := fmt.Sprintf("create index J on %s.`J`(`Id`,`CreatedAt`,`Age`)", tenant)
+	query := fmt.Sprintf("create index if not exists J on %s.`J`(`Id`,`CreatedAt`,`Age`)", tenant)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
