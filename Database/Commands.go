@@ -48,9 +48,7 @@ func (db *Database) CheckSchemaExist(tenant string) error {
 
 // CreateTableA for create new user table in tenant
 func (db *Database) CreateTableA(tenant string) error {
-	query := fmt.Sprintf(`create table if not exists %s."A"("Id" serial PRIMARY KEY,
-    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
-		"Age" int);`, tenant)
+	query := fmt.Sprintf("create table if not exists %s.`A`(`Id` bigint(20) NOT NULL AUTO_INCREMENT, `CreatedAt` timestamp DEFAULT CURRENT_TIMESTAMP, `Age` bigint(20), PRIMARY KEY (`Id`));", tenant)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -61,7 +59,7 @@ func (db *Database) CreateTableA(tenant string) error {
 
 // InsertIntoTableA for insert seed data into table A
 func (db *Database) InsertIntoTableA(tenant string) error {
-	query := fmt.Sprintf(`insert into %s."A" ("Age") values (%d);`, tenant, 12)
+	query := fmt.Sprintf("insert into %s.`A` (`Age`) values (%d);", tenant, 12)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -72,7 +70,7 @@ func (db *Database) InsertIntoTableA(tenant string) error {
 
 // CreateIndexTableA for create multi column index in table A
 func (db *Database) CreateIndexTableA(tenant string) error {
-	query := fmt.Sprintf(`create index A on %s."A"("Id","CreatedAt","Age")`, tenant)
+	query := fmt.Sprintf("create index if not exists A on %s.`A`(`Id`,`CreatedAt`,`Age`)", tenant)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -83,13 +81,7 @@ func (db *Database) CreateIndexTableA(tenant string) error {
 
 // CreateTableB for create new user table in tenant
 func (db *Database) CreateTableB(tenant string) error {
-	query := fmt.Sprintf(`create table if not exists %s."B"("Id" serial PRIMARY KEY,
-		"IdA" int,
-    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
-		"Age" int,
-		CONSTRAINT fk_B
-		FOREIGN KEY("IdA") 
-	  	REFERENCES %s."A"("Id"));`, tenant, tenant)
+	query := fmt.Sprintf("create table if not exists %s.`B`(`Id` bigint(20) unsigned NOT NULL AUTO_INCREMENT, `IdA` bigint(20),`CreatedAt` timestamp DEFAULT CURRENT_TIMESTAMP,`Age` bigint(20),CONSTRAINT fk_B FOREIGN KEY(`IdA`)	REFERENCES %s.`A`(`Id`), PRIMARY KEY (`Id`) );", tenant, tenant)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -100,7 +92,7 @@ func (db *Database) CreateTableB(tenant string) error {
 
 // InsertIntoTableB for insert seed data into table B
 func (db *Database) InsertIntoTableB(tenant string) error {
-	query := fmt.Sprintf(`insert into %s."B" ("Age","IdA") values (%d,%d);`, tenant, 12, 1)
+	query := fmt.Sprintf("insert into %s.`B` (`Age`,`IdA`) values (%d,%d);", tenant, 12, 1)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -111,7 +103,7 @@ func (db *Database) InsertIntoTableB(tenant string) error {
 
 // CreateIndexTableB for create multi column index in table B
 func (db *Database) CreateIndexTableB(tenant string) error {
-	query := fmt.Sprintf(`create index B on %s."B"("Id","CreatedAt","Age","IdA")`, tenant)
+	query := fmt.Sprintf("create index if not exists B on %s.`B`(`Id`,`CreatedAt`,`Age`,`IdA`)", tenant)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -122,9 +114,7 @@ func (db *Database) CreateIndexTableB(tenant string) error {
 
 // CreateTableC for create new user table in tenant
 func (db *Database) CreateTableC(tenant string) error {
-	query := fmt.Sprintf(`create table if not exists %s."C"("Id" serial PRIMARY KEY,
-    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
-		"Age" int);`, tenant)
+	query := fmt.Sprintf("create table if not exists %s.`C`(`Id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,`CreatedAt` timestamp DEFAULT CURRENT_TIMESTAMP, `Age` bigint(20), PRIMARY KEY (`Id`));", tenant)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -135,7 +125,7 @@ func (db *Database) CreateTableC(tenant string) error {
 
 // InsertIntoTableC for insert seed data into table C
 func (db *Database) InsertIntoTableC(tenant string) error {
-	query := fmt.Sprintf(`insert into %s."C" ("Age") values (%d);`, tenant, 12)
+	query := fmt.Sprintf("insert into %s.`C` (`Age`) values (%d);", tenant, 12)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -146,7 +136,7 @@ func (db *Database) InsertIntoTableC(tenant string) error {
 
 // CreateIndexTableC for create multi column index in table C
 func (db *Database) CreateIndexTableC(tenant string) error {
-	query := fmt.Sprintf(`create index C on %s."C"("Id","CreatedAt","Age")`, tenant)
+	query := fmt.Sprintf("create index if not exists C on %s.`C`(`Id`,`CreatedAt`,`Age`)", tenant)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -157,9 +147,7 @@ func (db *Database) CreateIndexTableC(tenant string) error {
 
 // CreateTableD for create new user table in tenant
 func (db *Database) CreateTableD(tenant string) error {
-	query := fmt.Sprintf(`create table if not exists %s."D"("Id" serial PRIMARY KEY,
-    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
-		"Age" int);`, tenant)
+	query := fmt.Sprintf("create table if not exists %s.`D`(`Id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,`CreatedAt` timestamp DEFAULT CURRENT_TIMESTAMP, `Age` bigint(20), PRIMARY KEY (`Id`));", tenant)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -170,7 +158,7 @@ func (db *Database) CreateTableD(tenant string) error {
 
 // InsertIntoTableD for insert seed data into table D
 func (db *Database) InsertIntoTableD(tenant string) error {
-	query := fmt.Sprintf(`insert into %s."D" ("Age") values (%d);`, tenant, 12)
+	query := fmt.Sprintf("insert into %s.`D` (`Age`) values (%d);", tenant, 12)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -181,7 +169,7 @@ func (db *Database) InsertIntoTableD(tenant string) error {
 
 // CreateIndexTableD for create multi column index in table D
 func (db *Database) CreateIndexTableD(tenant string) error {
-	query := fmt.Sprintf(`create index D on %s."D"("Id","CreatedAt","Age")`, tenant)
+	query := fmt.Sprintf("create index if not exists D on %s.`D`(`Id`,`CreatedAt`,`Age`)", tenant)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -192,9 +180,7 @@ func (db *Database) CreateIndexTableD(tenant string) error {
 
 // CreateTableE for create new user table in tenant
 func (db *Database) CreateTableE(tenant string) error {
-	query := fmt.Sprintf(`create table if not exists %s."E"("Id" serial PRIMARY KEY,
-    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
-		"Name" text);`, tenant)
+	query := fmt.Sprintf("create table if not exists %s.`E`(`Id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,`CreatedAt` timestamp DEFAULT CURRENT_TIMESTAMP, `Name` varchar(50) , PRIMARY KEY (`Id`));", tenant)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -205,7 +191,7 @@ func (db *Database) CreateTableE(tenant string) error {
 
 // InsertIntoTableE for insert seed data into table E
 func (db *Database) InsertIntoTableE(tenant string) error {
-	query := fmt.Sprintf(`insert into %s."E" ("Name") values ('%s');`, tenant, "mahdi")
+	query := fmt.Sprintf("insert into %s.`E` (`Name`) values ('%s');", tenant, "mahdi")
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
 		return err
@@ -215,7 +201,7 @@ func (db *Database) InsertIntoTableE(tenant string) error {
 
 // CreateIndexTableE for create multi column index in table E
 func (db *Database) CreateIndexTableE(tenant string) error {
-	query := fmt.Sprintf(`create index E on %s."E"("Id","CreatedAt","Name")`, tenant)
+	query := fmt.Sprintf("create index if not exists E on %s.`E`(`Id`,`CreatedAt`)", tenant)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -226,9 +212,7 @@ func (db *Database) CreateIndexTableE(tenant string) error {
 
 // CreateTableF for create new user table in tenant
 func (db *Database) CreateTableF(tenant string) error {
-	query := fmt.Sprintf(`create table if not exists %s."F"("Id" serial PRIMARY KEY,
-    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
-		"Age" int);`, tenant)
+	query := fmt.Sprintf("create table if not exists %s.`F`(`Id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,`CreatedAt` timestamp DEFAULT CURRENT_TIMESTAMP, `Age` bigint(20) ,PRIMARY KEY (`Id`) );", tenant)
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
 		return err
@@ -238,7 +222,7 @@ func (db *Database) CreateTableF(tenant string) error {
 
 // InsertIntoTableF for insert seed data into table F
 func (db *Database) InsertIntoTableF(tenant string) error {
-	query := fmt.Sprintf(`insert into %s."F" ("Age") values (%d);`, tenant, 123)
+	query := fmt.Sprintf("insert into %s.`F` (`Age`) values (%d);", tenant, 123)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -249,7 +233,7 @@ func (db *Database) InsertIntoTableF(tenant string) error {
 
 // CreateIndexTableF for create multi column index in table F
 func (db *Database) CreateIndexTableF(tenant string) error {
-	query := fmt.Sprintf(`create index F on %s."F"("Id","CreatedAt","Age")`, tenant)
+	query := fmt.Sprintf("create index if not exists F on %s.`F`(`Id`,`CreatedAt`,`Age`)", tenant)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -260,9 +244,7 @@ func (db *Database) CreateIndexTableF(tenant string) error {
 
 // CreateTableG for create new user table in tenant
 func (db *Database) CreateTableG(tenant string) error {
-	query := fmt.Sprintf(`create table if not exists %s."G"("Id" serial PRIMARY KEY,
-    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
-		"Age" int);`, tenant)
+	query := fmt.Sprintf("create table if not exists %s.`G`(`Id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,`CreatedAt` timestamp DEFAULT CURRENT_TIMESTAMP, `Age` bigint(20) ,PRIMARY KEY (`Id`)) ;", tenant)
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
 		return err
@@ -272,7 +254,7 @@ func (db *Database) CreateTableG(tenant string) error {
 
 // InsertIntoTableG for insert seed data into table G
 func (db *Database) InsertIntoTableG(tenant string) error {
-	query := fmt.Sprintf(`insert into %s."G" ("Age") values (%d);`, tenant, 123)
+	query := fmt.Sprintf("insert into %s.`G` (`Age`) values (%d);", tenant, 123)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -283,7 +265,7 @@ func (db *Database) InsertIntoTableG(tenant string) error {
 
 // CreateIndexTableG for create multi column index in table G
 func (db *Database) CreateIndexTableG(tenant string) error {
-	query := fmt.Sprintf(`create index G on %s."G"("Id","CreatedAt","Age")`, tenant)
+	query := fmt.Sprintf("create index if not exists G on %s.`G`(`Id`,`CreatedAt`,`Age`)", tenant)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -294,9 +276,7 @@ func (db *Database) CreateIndexTableG(tenant string) error {
 
 // CreateTableH for create new user table in tenant
 func (db *Database) CreateTableH(tenant string) error {
-	query := fmt.Sprintf(`create table if not exists %s."H"("Id" serial PRIMARY KEY,
-    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
-		"Age" int);`, tenant)
+	query := fmt.Sprintf("create table if not exists %s.`H`(`Id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,`CreatedAt` timestamp DEFAULT CURRENT_TIMESTAMP, `Age` bigint(20) ,PRIMARY KEY (`Id`) );", tenant)
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
 		return err
@@ -306,7 +286,7 @@ func (db *Database) CreateTableH(tenant string) error {
 
 // InsertIntoTableH for insert seed data into table H
 func (db *Database) InsertIntoTableH(tenant string) error {
-	query := fmt.Sprintf(`insert into %s."H" ("Age") values (%d);`, tenant, 143)
+	query := fmt.Sprintf("insert into %s.`H` (`Age`) values (%d);", tenant, 143)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -317,7 +297,7 @@ func (db *Database) InsertIntoTableH(tenant string) error {
 
 // CreateIndexTableH for create multi column index in table H
 func (db *Database) CreateIndexTableH(tenant string) error {
-	query := fmt.Sprintf(`create index H on %s."H"("Id","CreatedAt","Age")`, tenant)
+	query := fmt.Sprintf("create index if not exists H on %s.`H`(`Id`,`CreatedAt`,`Age`)", tenant)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -328,9 +308,7 @@ func (db *Database) CreateIndexTableH(tenant string) error {
 
 // CreateTableI for create new user table in tenant
 func (db *Database) CreateTableI(tenant string) error {
-	query := fmt.Sprintf(`create table if not exists %s."I"("Id" serial PRIMARY KEY,
-    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
-		"Age" int);`, tenant)
+	query := fmt.Sprintf("create table if not exists %s.`I`(`Id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,`CreatedAt` timestamp DEFAULT CURRENT_TIMESTAMP, `Age` bigint(20) ,PRIMARY KEY (`Id`) );", tenant)
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
 		return err
@@ -340,7 +318,7 @@ func (db *Database) CreateTableI(tenant string) error {
 
 // InsertIntoTableI for insert seed data into table I
 func (db *Database) InsertIntoTableI(tenant string) error {
-	query := fmt.Sprintf(`insert into %s."I" ("Age") values (%d);`, tenant, 143)
+	query := fmt.Sprintf("insert into %s.`I` (`Age`) values (%d);", tenant, 143)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -351,7 +329,7 @@ func (db *Database) InsertIntoTableI(tenant string) error {
 
 // CreateIndexTableI for create multi column index in table I
 func (db *Database) CreateIndexTableI(tenant string) error {
-	query := fmt.Sprintf(`create index I on %s."I"("Id","CreatedAt","Age")`, tenant)
+	query := fmt.Sprintf("create index if not exists I on %s.`I`(`Id`,`CreatedAt`,`Age`)", tenant)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -362,9 +340,7 @@ func (db *Database) CreateIndexTableI(tenant string) error {
 
 // CreateTableJ for create new user table in tenant
 func (db *Database) CreateTableJ(tenant string) error {
-	query := fmt.Sprintf(`create table if not exists %s."J"("Id" serial PRIMARY KEY,
-    	"CreatedAt" timestamp NOT NULL DEFAULT (now()),
-		"Age" int);`, tenant)
+	query := fmt.Sprintf("create table if not exists %s.`J`(`Id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,`CreatedAt` timestamp DEFAULT CURRENT_TIMESTAMP, `Age` bigint(20) ,PRIMARY KEY (`Id`) );", tenant)
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
 		return err
@@ -374,7 +350,7 @@ func (db *Database) CreateTableJ(tenant string) error {
 
 // InsertIntoTableJ for insert seed data into table J
 func (db *Database) InsertIntoTableJ(tenant string) error {
-	query := fmt.Sprintf(`insert into %s."J" ("Age") values (%d);`, tenant, 143)
+	query := fmt.Sprintf("insert into %s.`J` (`Age`) values (%d);", tenant, 143)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
@@ -385,7 +361,7 @@ func (db *Database) InsertIntoTableJ(tenant string) error {
 
 // CreateIndexTableJ for create multi column index in table J
 func (db *Database) CreateIndexTableJ(tenant string) error {
-	query := fmt.Sprintf(`create index J on %s."J"("Id","CreatedAt","Age")`, tenant)
+	query := fmt.Sprintf("create index J on %s.`J`(`Id`,`CreatedAt`,`Age`)", tenant)
 
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
